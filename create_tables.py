@@ -19,6 +19,10 @@ def main():
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
 
+    # precondition: AWS Redshift Cluster must be launched
+    # find this in AWS Redshift Cluster Properties
+    # host comes from Endpoint, ends in amazonaws.com, and is the only one surrounded in single-quotes
+    # ARN is also found in AWS Redshift Cluster Properties
     conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['CLUSTER'].values()))
     cur = conn.cursor()
 
