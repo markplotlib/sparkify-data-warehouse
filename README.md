@@ -24,5 +24,20 @@ load data from S3 into staging tables on Redshift, and then process that data in
 
 ### Design Decisions
 
+#### Keyspace Star Schema
+
+The *star* schema is used, with a **fact** table centered around **dimension** tables at its periphery.
+
+**Fact table**: `songplays` -- every occurrence of a song being played is stored here.
+
+**Dimension tables**:
+
+* `users` -- the users of the Sparkify music streaming app
+
+* `songs` -- the songs in Sparkify's music catalog
+
+* `artists` -- the artists who record the catalog's songs
+
+* `time` -- the timestamps of records in songplays, broken down into specific date and time units (year, day, hour, etc.)
 
 ### Run instructions
