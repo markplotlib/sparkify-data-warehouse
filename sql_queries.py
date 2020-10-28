@@ -9,66 +9,116 @@ config.read('dwh.cfg')
 
 staging_events_table_drop = "DROP TABLE IF EXISTS staging_events"
 staging_songs_table_drop = "DROP TABLE IF EXISTS staging_songs"
-songplay_table_drop = ""
-user_table_drop = ""
-song_table_drop = ""
-artist_table_drop = ""
-time_table_drop = ""
+# fact table
+songplay_table_drop = "DROP TABLE IF EXISTS songplays"
+# dimension tables (4)
+user_table_drop = "DROP TABLE IF EXISTS users"
+song_table_drop = "DROP TABLE IF EXISTS songs"
+artist_table_drop = "DROP TABLE IF EXISTS artists"
+time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
 
 staging_events_table_create= ("""
-                              CREATE TABLE IF NOT EXISTS staging_events (
-                              artist varchar,
-                              auth varchar,
-                              first_name varchar,
-                              gender varchar(1),
-                              item_in_session int NOT NULL,
-                              last_name varchar,
-                              length float,
-                              level varchar(4),
-                              location varchar,
-                              method varchar(3),
-                              page varchar,
-                              registration float,
-                              session_id int NOT NULL,
-                              song varchar,
-                              status int NOT NULL,
-                              ts timestamp,
-                              user_agent varchar,
-                              user_id int NOT NULL
+                              CREATE TABLE IF NOT EXISTS staging_events 
+                              (
+                                  event_id VARCHAR IDENTITY(0, 1),
+                                  artist VARCHAR,
+                                  auth VARCHAR,
+                                  first_name VARCHAR,
+                                  gender VARCHAR(1),
+                                  item_in_session INT NOT NULL,
+                                  last_name VARCHAR,
+                                  length FLOAT,
+                                  level VARCHAR(4),
+                                  location VARCHAR,
+                                  method VARCHAR(3),
+                                  page VARCHAR,
+                                  registration FLOAT,
+                                  session_id INT NOT NULL,
+                                  song VARCHAR,
+                                  status INT NOT NULL,
+                                  ts BIGINT NOT NULL,
+                                  user_agent VARCHAR,
+                                  user_id INT NOT NULL
                               )
 """)
 
 staging_songs_table_create = ("""
-                              CREATE TABLE IF NOT EXISTS staging_songs (
-                              artist_id varchar,
-                              artist_latitude numeric,
-                              artist_location varchar,
-                              artist_longitude numeric,
-                              artist_name varchar,
-                              duration numeric,
-                              num_songs int,
-                              song_id varchar,
-                              title varchar,
-                              year int
+                              CREATE TABLE IF NOT EXISTS staging_songs 
+                              (
+                                  song_id VARCHAR IDENTITY(0, 1),
+                                  artist_id VARCHAR,
+                                  artist_latitude NUMERIC,
+                                  artist_location VARCHAR,
+                                  artist_longitude NUMERIC,
+                                  artist_name VARCHAR,
+                                  duration NUMERIC,
+                                  num_songs INT,
+                                  title VARCHAR,
+                                  year INT
                               )
 """)
-# staging_songs
 
 songplay_table_create = ("""
+                         CREATE TABLE IF NOT EXISTS songplays 
+                         (
+                             songplay_id VARCHAR IDENTITY(0, 1),
+                             start_time BIGINT NOT NULL,
+                             user_id VARCHAR NOT NULL,
+                             level VARCHAR,
+                             song_id VARCHAR,
+                             artist_id VARCHAR,
+                             session_id VARCHAR,
+                             location VARCHAR,
+                             user_agent VARCHAR
+                         )
 """)
 
 user_table_create = ("""
+                     CREATE TABLE IF NOT EXISTS users
+                     (
+                         user_id VARCHAR IDENTITY(0, 1), 
+                         first_name VARCHAR, 
+                         last_name VARCHAR,
+                         gender VARCHAR, 
+                         level VARCHAR NOT NULL
+                     )
 """)
 
 song_table_create = ("""
+                     CREATE TABLE IF NOT EXISTS songs 
+                     (
+                         song_id VARCHAR IDENTITY(0, 1),
+                         title VARCHAR,
+                         artist_id VARCHAR,
+                         year INT,
+                         duration NUMERIC
+                     )
 """)
 
 artist_table_create = ("""
+                       CREATE TABLE IF NOT EXISTS artists
+                       (
+                           artist_id VARCHAR IDENTITY(0, 1), 
+                           name VARCHAR NOT NULL, 
+                           location VARCHAR, 
+                           latitude FLOAT, 
+                           longitude FLOAT
+                       )
 """)
 
 time_table_create = ("""
+                     CREATE TABLE IF NOT EXISTS time
+                     (
+                         start_time BIGINT IDENTITY(0, 1),
+                         hour INT, 
+                         day INT, 
+                         week INT, 
+                         month INT, 
+                         year INT, 
+                         weekday VARCHAR
+                     )
 """)
 
 # STAGING TABLES
@@ -77,14 +127,9 @@ time_table_create = ("""
 
 staging_events_copy = ("""
 """).format()
-# https://knowledge.udacity.com/questions/120438
-# https://knowledge.udacity.com/questions/359452
-# timestamp in staging_events create needs to be bigint.
 
 staging_songs_copy = ("""
 """).format()
-# https://knowledge.udacity.com/questions/55466
-# https://knowledge.udacity.com/questions/51992
 
 # FINAL TABLES
 
@@ -105,9 +150,7 @@ time_table_insert = ("""
 
 # QUERY LISTS
 
-# create_table_queries = [staging_events_table_create, staging_songs_table_create, songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
-# drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
-create_table_queries = [staging_events_table_create, staging_songs_table_create]
-drop_table_queries = [staging_events_table_drop, staging_songs_table_drop]
+create_table_queries = [staging_events_table_create, staging_songs_table_create, songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
+drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
 copy_table_queries = [staging_events_copy, staging_songs_copy]
 insert_table_queries = [songplay_table_insert, user_table_insert, song_table_insert, artist_table_insert, time_table_insert]
