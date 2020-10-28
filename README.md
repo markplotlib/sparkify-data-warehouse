@@ -40,4 +40,16 @@ The *star* schema is used, with a **fact** table centered around **dimension** t
 
 * `time` -- the timestamps of records in songplays, broken down into specific date and time units (year, day, hour, etc.)
 
-### Run instructions
+### Run Instructions
+
+1. Clone this repository, which will place the 3 `.py` files and the `.cfg` file
+ into the same directory.
+2. Duplicate the `dwh_template.cfg` file to create a new file named `dwh.cfg`. 
+ Because this will contain private login credentials, be sure it is added to the
+ `.gitignore` file.
+3. Fill in the `[CLUSTER]` and `[IAM_ROLE]` attributes from AWS,
+ according to the IAM role and Redshift cluster already created. Please consult
+ AWS's well-documented instructions as necessary.
+4. Run `create_tables.py` to set up the Redshift data warehouse cluster.
+5. Run `etl.py`. This will copy the 2 large tables from S3 into staging tables.
+ This will also populate the smaller dimension tables.
