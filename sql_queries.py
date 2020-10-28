@@ -126,10 +126,28 @@ time_table_create = ("""
 # main purpose: to increase ETL efficiency, and to ensure data integrity.
 
 staging_events_copy = ("""
-""").format()
+                       COPY staging_events
+                       FROM '{}'
+                       iam_role '{}'
+                       region 'us-west-2'
+                       json '{}'
+""").format(
+    config.get("S3", "LOG_DATA"),
+    config.get("IAM_ROLE", "ARN"),
+    config.get("S3", "LOG_JSONPATH")
+)
 
 staging_songs_copy = ("""
-""").format()
+                      COPY staging_songs
+                      FROM '{}'
+                      iam_role '{}'
+                      region 'us-west-2'
+                      json '{}' 
+""").format(
+    config.get("S3", "SONG_DATA"),
+    config.get("IAM_ROLE", "ARN"),
+    config.get("S3", "LOG_JSONPATH")
+)
 
 # FINAL TABLES
 
