@@ -20,7 +20,7 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 # CREATE TABLES
 
 staging_events_table_create= ("""
-                              CREATE TABLE IF NOT EXISTS staging_events 
+                              CREATE TABLE IF NOT EXISTS staging_events
                               (
                                   event_id VARCHAR IDENTITY(0, 1),
                                   artist VARCHAR,
@@ -45,7 +45,7 @@ staging_events_table_create= ("""
 """)
 
 staging_songs_table_create = ("""
-                              CREATE TABLE IF NOT EXISTS staging_songs 
+                              CREATE TABLE IF NOT EXISTS staging_songs
                               (
                                   song_id VARCHAR IDENTITY(0, 1),
                                   artist_id VARCHAR,
@@ -61,7 +61,7 @@ staging_songs_table_create = ("""
 """)
 
 songplay_table_create = ("""
-                         CREATE TABLE IF NOT EXISTS songplays 
+                         CREATE TABLE IF NOT EXISTS songplays
                          (
                              songplay_id VARCHAR IDENTITY(0, 1),
                              start_time BIGINT NOT NULL,
@@ -78,18 +78,18 @@ songplay_table_create = ("""
 user_table_create = ("""
                      CREATE TABLE IF NOT EXISTS users
                      (
-                         user_id VARCHAR IDENTITY(0, 1), 
-                         first_name VARCHAR, 
+                         user_id VARCHAR IDENTITY(0, 1) PRIMARY KEY,
+                         first_name VARCHAR,
                          last_name VARCHAR,
-                         gender VARCHAR, 
+                         gender VARCHAR,
                          level VARCHAR NOT NULL
                      )
 """)
 
 song_table_create = ("""
-                     CREATE TABLE IF NOT EXISTS songs 
+                     CREATE TABLE IF NOT EXISTS songs
                      (
-                         song_id VARCHAR IDENTITY(0, 1),
+                         song_id VARCHAR IDENTITY(0, 1) PRIMARY KEY,
                          title VARCHAR,
                          artist_id VARCHAR,
                          year INT,
@@ -100,10 +100,10 @@ song_table_create = ("""
 artist_table_create = ("""
                        CREATE TABLE IF NOT EXISTS artists
                        (
-                           artist_id VARCHAR IDENTITY(0, 1), 
-                           name VARCHAR NOT NULL, 
-                           location VARCHAR, 
-                           latitude FLOAT, 
+                           artist_id VARCHAR IDENTITY(0, 1) PRIMARY KEY,
+                           name VARCHAR NOT NULL,
+                           location VARCHAR,
+                           latitude FLOAT,
                            longitude FLOAT
                        )
 """)
@@ -111,12 +111,12 @@ artist_table_create = ("""
 time_table_create = ("""
                      CREATE TABLE IF NOT EXISTS time
                      (
-                         start_time BIGINT IDENTITY(0, 1),
-                         hour INT, 
-                         day INT, 
-                         week INT, 
-                         month INT, 
-                         year INT, 
+                         start_time BIGINT IDENTITY(0, 1) PRIMARY KEY,
+                         hour INT,
+                         day INT,
+                         week INT,
+                         month INT,
+                         year INT,
                          weekday VARCHAR
                      )
 """)
@@ -142,7 +142,7 @@ staging_songs_copy = ("""
                       FROM '{}'
                       iam_role '{}'
                       region 'us-west-2'
-                      json '{}' 
+                      json '{}'
 """).format(
     config.get("S3", "SONG_DATA"),
     config.get("IAM_ROLE", "ARN"),
@@ -153,7 +153,7 @@ staging_songs_copy = ("""
 
 songplay_table_insert = ("""
                          INSERT INTO songplays
-                         (songplay_id, start_time, user_id, level, song_id, 
+                         (songplay_id, start_time, user_id, level, song_id,
                           artist_id, session_id, location, user_agent)
                          VALUES (%, %, %, %, %, %, %, %, %)
                          ON CONFLICT (songplay_id) DO NOTHING;
