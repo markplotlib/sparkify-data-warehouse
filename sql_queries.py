@@ -155,9 +155,8 @@ songplay_table_insert = ("""
                          INSERT INTO songplays
                          (songplay_id, start_time, user_id, level, song_id,
                           artist_id, session_id, location, user_agent)
-                         SELECT DISTINCT
-                         (event_id, start_time, user_id, level, song_id,
-                          artist_id, session_id, location, user_agent)
+                         SELECT DISTINCT event_id, start_time, user_id, level, song_id,
+                          artist_id, session_id, location, user_agent
                          FROM staging_events
                          ON CONFLICT (songplay_id) DO NOTHING;
 """)
@@ -165,8 +164,7 @@ songplay_table_insert = ("""
 user_table_insert = ("""
                      INSERT INTO users
                      (user_id, first_name, last_name, gender, level)
-                     SELECT DISTINCT
-                     (user_id, first_name, last_name, gender, level)
+                     SELECT DISTINCT user_id, first_name, last_name, gender, level
                      FROM staging_events
                      ON CONFLICT (user_id) DO NOTHING;
 """)
@@ -174,8 +172,7 @@ user_table_insert = ("""
 song_table_insert = ("""
                      INSERT INTO songs
                      (song_id, title, artist_id, year, duration)
-                     SELECT DISTINCT
-                     (song_id, title, artist_id, year, duration)
+                     SELECT DISTINCT song_id, title, artist_id, year, duration
                      FROM staging_songs
                      ON CONFLICT (song_id) DO NOTHING;
 """)
@@ -183,8 +180,7 @@ song_table_insert = ("""
 artist_table_insert = ("""
                        INSERT INTO artists
                        (artist_id, name, location, latitude, longitude)
-                       SELECT DISTINCT
-                       (artist_id, name, location, artist_latitude, artist_location)
+                       SELECT DISTINCT artist_id, name, location, artist_latitude, artist_location
                        FROM staging_songs
                        ON CONFLICT (artist_id) DO NOTHING;
 """)
@@ -192,8 +188,7 @@ artist_table_insert = ("""
 time_table_insert = ("""
                      INSERT INTO time
                      (start_time, hour, day, week, month, year, weekday)
-                     SELECT DISTINCT
-                     (ts, hour, day, week, month, year, weekday)
+                     SELECT DISTINCT ts, hour, day, week, month, year, weekday
                      FROM staging_events
                      ON CONFLICT (start_time) DO NOTHING;
 """)
