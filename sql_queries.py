@@ -22,7 +22,7 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 staging_events_table_create= ("""
                               CREATE TABLE IF NOT EXISTS staging_events
                               (
-                                  event_id VARCHAR IDENTITY(0, 1),
+                                  event_id VARCHAR UNIQUE NOT NULL,
                                   artist VARCHAR,
                                   auth VARCHAR,
                                   first_name VARCHAR,
@@ -47,7 +47,7 @@ staging_events_table_create= ("""
 staging_songs_table_create = ("""
                               CREATE TABLE IF NOT EXISTS staging_songs
                               (
-                                  song_id VARCHAR IDENTITY(0, 1),
+                                  song_id VARCHAR UNIQUE NOT NULL,
                                   artist_id VARCHAR,
                                   artist_latitude NUMERIC,
                                   artist_location VARCHAR,
@@ -63,7 +63,7 @@ staging_songs_table_create = ("""
 songplay_table_create = ("""
                          CREATE TABLE IF NOT EXISTS songplays
                          (
-                             songplay_id VARCHAR IDENTITY(0, 1),
+                             songplay_id VARCHAR UNIQUE NOT NULL,
                              start_time BIGINT NOT NULL,
                              user_id VARCHAR NOT NULL,
                              level VARCHAR,
@@ -78,7 +78,7 @@ songplay_table_create = ("""
 user_table_create = ("""
                      CREATE TABLE IF NOT EXISTS users
                      (
-                         user_id VARCHAR IDENTITY(0, 1) PRIMARY KEY,
+                         user_id VARCHAR UNIQUE NOT NULL,
                          first_name VARCHAR,
                          last_name VARCHAR,
                          gender VARCHAR,
@@ -89,7 +89,7 @@ user_table_create = ("""
 song_table_create = ("""
                      CREATE TABLE IF NOT EXISTS songs
                      (
-                         song_id VARCHAR IDENTITY(0, 1) PRIMARY KEY,
+                         song_id VARCHAR UNIQUE NOT NULL,
                          title VARCHAR,
                          artist_id VARCHAR,
                          year INT,
@@ -100,7 +100,7 @@ song_table_create = ("""
 artist_table_create = ("""
                        CREATE TABLE IF NOT EXISTS artists
                        (
-                           artist_id VARCHAR IDENTITY(0, 1) PRIMARY KEY,
+                           artist_id VARCHAR UNIQUE NOT NULL,
                            name VARCHAR NOT NULL,
                            location VARCHAR,
                            latitude FLOAT,
@@ -111,7 +111,7 @@ artist_table_create = ("""
 time_table_create = ("""
                      CREATE TABLE IF NOT EXISTS time
                      (
-                         start_time BIGINT IDENTITY(0, 1) PRIMARY KEY,
+                         start_time BIGINT UNIQUE NOT NULL,
                          hour INT,
                          day INT,
                          week INT,
