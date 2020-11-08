@@ -188,7 +188,13 @@ artist_table_insert = ("""
 time_table_insert = ("""
                      INSERT INTO time
                      (start_time, hour, day, week, month, year, weekday)
-                     SELECT DISTINCT ts, hour, day, week, month, year, weekday
+                     SELECT DISTINCT ts, 
+                     EXTRACT (HOUR FROM ts) AS hour, 
+                     EXTRACT (DAY FROM ts) AS day, 
+                     EXTRACT (WEEK FROM ts) AS week, 
+                     EXTRACT (MONTH FROM ts) AS month, 
+                     EXTRACT (YEAR FROM ts) AS year, 
+                     EXTRACT (WEEKDAY FROM ts) AS weekday
                      FROM staging_events
                      ON CONFLICT (start_time) DO NOTHING;
 """)
