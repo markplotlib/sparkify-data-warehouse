@@ -22,102 +22,101 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 staging_events_table_create= ("""
                               CREATE TABLE IF NOT EXISTS staging_events
                               (
-                                  event_id VARCHAR UNIQUE NOT NULL,
-                                  artist VARCHAR,
-                                  auth VARCHAR,
-                                  first_name VARCHAR,
-                                  gender VARCHAR(1),
-                                  item_in_session INT NOT NULL,
-                                  last_name VARCHAR,
-                                  length FLOAT,
-                                  level VARCHAR(4),
-                                  location VARCHAR,
-                                  method VARCHAR(3),
-                                  page VARCHAR,
-                                  registration FLOAT,
-                                  session_id INT NOT NULL,
-                                  song VARCHAR,
-                                  status INT NOT NULL,
-                                  ts BIGINT NOT NULL,
-                                  user_agent VARCHAR,
-                                  user_id INT NOT NULL
+                                    artist text,
+                                    auth text,
+                                    first_name text,
+                                    gender text,
+                                    item_in_session integer,
+                                    last_name text,
+                                    length float,
+                                    level text,
+                                    location text,
+                                    method text,
+                                    page text,
+                                    registration float,
+                                    session_id bigint,
+                                    song text,
+                                    status integer,
+                                    ts bigint,
+                                    user_agent text,
+                                    user_id int
                               )
 """)
 
 staging_songs_table_create = ("""
                               CREATE TABLE IF NOT EXISTS staging_songs
                               (
-                                  song_id VARCHAR UNIQUE NOT NULL,
-                                  artist_id VARCHAR,
-                                  artist_latitude NUMERIC,
-                                  artist_location NUMERIC,
-                                  artist_longitude NUMERIC,
-                                  artist_name VARCHAR,
-                                  duration NUMERIC,
-                                  num_songs INT,
-                                  title VARCHAR,
-                                  year INT
+                                  num_songs int,
+                                  artist_id text,
+                                  artist_name text,
+                                  artist_latitude numeric,
+                                  artist_longitude numeric,
+                                  artist_location text,
+                                  song_id text,
+                                  title text,
+                                  duration numeric,
+                                  year int
                               )
 """)
 
 songplay_table_create = ("""
                          CREATE TABLE IF NOT EXISTS songplays
                          (
-                             songplay_id VARCHAR UNIQUE NOT NULL,
-                             start_time BIGINT NOT NULL,
-                             user_id VARCHAR NOT NULL,
-                             level VARCHAR,
-                             song_id VARCHAR,
-                             artist_id VARCHAR,
-                             session_id VARCHAR,
-                             location VARCHAR,
-                             user_agent VARCHAR
+                             songplay_id text,
+                             start_time bigint,
+                             user_id text,
+                             level text,
+                             song_id text,
+                             artist_id text,
+                             session_id text,
+                             location text,
+                             user_agent text
                          )
 """)
 
 user_table_create = ("""
                      CREATE TABLE IF NOT EXISTS users
                      (
-                         user_id VARCHAR UNIQUE NOT NULL,
-                         first_name VARCHAR,
-                         last_name VARCHAR,
-                         gender VARCHAR,
-                         level VARCHAR NOT NULL
+                         user_id text,
+                         first_name text,
+                         last_name text,
+                         gender text,
+                         level text
                      )
 """)
 
 song_table_create = ("""
                      CREATE TABLE IF NOT EXISTS songs
                      (
-                         song_id VARCHAR UNIQUE NOT NULL,
-                         title VARCHAR,
-                         artist_id VARCHAR,
-                         year INT,
-                         duration NUMERIC
+                         song_id text,
+                         title text,
+                         artist_id text,
+                         year int,
+                         duration numeric
                      )
 """)
 
 artist_table_create = ("""
                        CREATE TABLE IF NOT EXISTS artists
                        (
-                           artist_id VARCHAR UNIQUE NOT NULL,
-                           name VARCHAR NOT NULL,
-                           location VARCHAR,
-                           latitude FLOAT,
-                           longitude FLOAT
+                           artist_id text,
+                           name text,
+                           location text,
+                           latitude float,
+                           longitude float
                        )
 """)
 
 time_table_create = ("""
                      CREATE TABLE IF NOT EXISTS time
                      (
-                         start_time BIGINT NOT NULL,
-                         hour INT NOT NULL,
-                         day INT NOT NULL,
-                         week INT NOT NULL,
-                         month INT NOT NULL,
-                         year INT NOT NULL,
-                         weekday VARCHAR NOT NULL
+                         start_time bigint,
+                         hour int,
+                         day int,
+                         week int,
+                         month int,
+                         year int,
+                         weekday text
                      )
 """)
 
@@ -201,7 +200,10 @@ time_table_insert = ("""
 
 # QUERY LISTS
 
+# create_tables.py
 create_table_queries = [staging_events_table_create, staging_songs_table_create, songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
 drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
+
+# etl.py
 copy_table_queries = [staging_events_copy, staging_songs_copy]
 insert_table_queries = [songplay_table_insert, user_table_insert, song_table_insert, artist_table_insert, time_table_insert]
