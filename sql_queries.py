@@ -22,101 +22,101 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 staging_events_table_create= ("""
                               CREATE TABLE IF NOT EXISTS staging_events
                               (
-                                    artist text,
-                                    auth text,
-                                    first_name text,
-                                    gender text,
-                                    item_in_session integer,
-                                    last_name text,
-                                    length float,
-                                    level text,
-                                    location text,
-                                    method text,
-                                    page text,
-                                    registration float,
-                                    session_id bigint,
-                                    song text,
-                                    status integer,
-                                    ts bigint,
-                                    user_agent text,
-                                    user_id int
+                                    artist TEXT,
+                                    auth TEXT,
+                                    first_name TEXT,
+                                    gender TEXT,
+                                    item_in_session INT,
+                                    last_name TEXT,
+                                    length FLOAT,
+                                    level TEXT,
+                                    location TEXT,
+                                    method TEXT,
+                                    page TEXT,
+                                    registration FLOAT,
+                                    session_id BIGINT,
+                                    song TEXT,
+                                    status INT,
+                                    ts BIGINT,
+                                    user_agent TEXT,
+                                    user_id INT
                               )
 """)
 
 staging_songs_table_create = ("""
                               CREATE TABLE IF NOT EXISTS staging_songs
                               (
-                                  num_songs int,
-                                  artist_id text,
-                                  artist_name text,
-                                  artist_latitude numeric,
-                                  artist_longitude numeric,
-                                  artist_location text,
-                                  song_id text,
-                                  title text,
-                                  duration numeric,
-                                  year int
+                                  num_songs INT,
+                                  artist_id TEXT,
+                                  artist_name TEXT,
+                                  artist_latitude FLOAT,
+                                  artist_longitude FLOAT,
+                                  artist_location TEXT,
+                                  song_id TEXT,
+                                  title TEXT,
+                                  duration FLOAT,
+                                  year INT
                               )
 """)
 
 songplay_table_create = ("""
                          CREATE TABLE IF NOT EXISTS songplays
                          (
-                             songplay_id text,
-                             start_time bigint,
-                             user_id text,
-                             level text,
-                             song_id text,
-                             artist_id text,
-                             session_id text,
-                             location text,
-                             user_agent text
+                             songplay_id INT IDENTITY(0, 1),
+                             start_time BIGINT,
+                             user_id TEXT,
+                             level TEXT,
+                             song_id TEXT,
+                             artist_id TEXT,
+                             session_id TEXT,
+                             location TEXT,
+                             user_agent TEXT
                          )
 """)
 
 user_table_create = ("""
                      CREATE TABLE IF NOT EXISTS users
                      (
-                         user_id text,
-                         first_name text,
-                         last_name text,
-                         gender text,
-                         level text
+                         user_id INT IDENTITY(0, 1),
+                         first_name TEXT,
+                         last_name TEXT,
+                         gender TEXT,
+                         level TEXT
                      )
 """)
 
 song_table_create = ("""
                      CREATE TABLE IF NOT EXISTS songs
                      (
-                         song_id text,
-                         title text,
-                         artist_id text,
-                         year int,
-                         duration numeric
+                         song_id INT IDENTITY(0, 1),
+                         title TEXT,
+                         artist_id TEXT,
+                         year INT,
+                         duration FLOAT
                      )
 """)
 
 artist_table_create = ("""
                        CREATE TABLE IF NOT EXISTS artists
                        (
-                           artist_id text,
-                           name text,
-                           location text,
-                           latitude float,
-                           longitude float
+                           artist_id INT IDENTITY(0, 1),
+                           name TEXT,
+                           location TEXT,
+                           latitude FLOAT,
+                           longitude FLOAT
                        )
 """)
 
 time_table_create = ("""
                      CREATE TABLE IF NOT EXISTS time
                      (
-                         start_time bigint,
-                         hour int,
-                         day int,
-                         week int,
-                         month int,
-                         year int,
-                         weekday text
+                         start_time BIGINT,
+                         hour INT,
+                         day INT,
+                         week INT,
+                         month INT,
+                         year INT,
+                         weekday TEXT
                      )
 """)
 
