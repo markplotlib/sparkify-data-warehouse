@@ -144,10 +144,13 @@ songplay_table_insert = ("""
                          INSERT INTO songplays
                          (start_time, user_id, level, song_id,
                           artist_id, session_id, location, user_agent)
-                         SELECT DISTINCT ts, userId, level, 
-                            song_id, artist_id, 
-                            sessionId, location, userAgent
-                         FROM staging_events
+                         SELECT DISTINCT se.ts, se.userId, se.level, 
+                            ss.song_id, ss.artist_id, 
+                            se.sessionId, se.location, se.userAgent
+                         FROM staging_events se
+                         JOIN staging_songs ss 
+                            ON (se.artist = ss.artist_name)
+                            AND (se.song = ss.title)
                          WHERE page = 'NextSong'
                          AND ts IS NOT NULL;
 """)
