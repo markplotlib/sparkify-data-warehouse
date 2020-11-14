@@ -62,12 +62,12 @@ staging_songs_table_create = ("""
 songplay_table_create = ("""
                          CREATE TABLE IF NOT EXISTS songplays
                          (
-                             songplay_id INT IDENTITY(0, 1),
-                             start_time BIGINT,
-                             user_id TEXT,
+                             songplay_id INT IDENTITY(0, 1) PRIMARY KEY,
+                             start_time BIGINT NOT NULL,
+                             user_id TEXT NOT NULL,
                              level TEXT,
-                             song_id TEXT,
-                             artist_id TEXT,
+                             song_id TEXT NOT NULL,
+                             artist_id TEXT NOT NULL,
                              session_id TEXT,
                              location TEXT,
                              user_agent TEXT
@@ -77,7 +77,7 @@ songplay_table_create = ("""
 user_table_create = ("""
                      CREATE TABLE IF NOT EXISTS users
                      (
-                         user_id INT IDENTITY(0, 1),
+                         user_id INT IDENTITY(0, 1) PRIMARY KEY,
                          first_name TEXT,
                          last_name TEXT,
                          gender TEXT,
@@ -88,9 +88,9 @@ user_table_create = ("""
 song_table_create = ("""
                      CREATE TABLE IF NOT EXISTS songs
                      (
-                         song_id INT IDENTITY(0, 1),
+                         song_id INT IDENTITY(0, 1) PRIMARY KEY,
                          title TEXT,
-                         artist_id TEXT,
+                         artist_id TEXT NOT NULL,
                          year INT,
                          duration FLOAT
                      )
@@ -99,7 +99,7 @@ song_table_create = ("""
 artist_table_create = ("""
                        CREATE TABLE IF NOT EXISTS artists
                        (
-                           artist_id INT IDENTITY(0, 1),
+                           artist_id INT IDENTITY(0, 1) PRIMARY KEY,
                            name TEXT,
                            location TEXT,
                            latitude FLOAT,
@@ -110,7 +110,7 @@ artist_table_create = ("""
 time_table_create = ("""
                      CREATE TABLE IF NOT EXISTS time
                      (
-                         start_time BIGINT IDENTITY(0, 1),
+                         start_time BIGINT IDENTITY(0, 1) PRIMARY KEY,
                          hour INT,
                          day INT,
                          week INT,
