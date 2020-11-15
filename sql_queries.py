@@ -128,9 +128,9 @@ staging_events_copy = ("""
                        COPY staging_events
                        FROM '{}'
                        iam_role '{}'
-                       FORMAT AS json 'auto'
+                       FORMAT AS json '{}'
                        TRUNCATECOLUMNS
-""").format(config['S3']['LOG_DATA'], config['IAM_ROLE']['ARN'])
+""").format(config['S3']['LOG_DATA'], config['IAM_ROLE']['ARN'], config['S3']['LOG_JSONPATH'])
 
 staging_songs_copy = ("""
                       COPY staging_songs
