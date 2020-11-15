@@ -130,6 +130,7 @@ staging_events_copy = ("""
                        iam_role '{}'
                        FORMAT AS json '{}'
                        TRUNCATECOLUMNS
+                       EXPLICIT_IDS
 """).format(config['S3']['LOG_DATA'], config['IAM_ROLE']['ARN'], config['S3']['LOG_JSONPATH'])
 
 staging_songs_copy = ("""
@@ -138,6 +139,7 @@ staging_songs_copy = ("""
                       iam_role '{}'
                       FORMAT AS json 'auto'
                       TRUNCATECOLUMNS
+                      EXPLICIT_IDS
 """).format(config['S3']['SONG_DATA'], config['IAM_ROLE']['ARN'])
 
 # FINAL TABLES
@@ -146,9 +148,9 @@ songplay_table_insert = ("""
                          INSERT INTO songplays
                          (start_time, user_id, level, song_id,
                           artist_id, session_id, location, user_agent)
-                         SELECT DISTINCT se.ts, se.userId, se.level, 
+                         SELECT DISTINCT se.ts, se.user_id, se.level, 
                             ss.song_id, ss.artist_id, 
-                            se.sessionId, se.location, se.userAgent
+                            se.session_id, se.location, se.user_agent
                          FROM staging_events se
                          JOIN staging_songs ss 
                             ON (se.artist = ss.artist_name)
@@ -160,7 +162,7 @@ songplay_table_insert = ("""
 user_table_insert = ("""
                      INSERT INTO users
                      (user_id, first_name, last_name, gender, level)
-                     SELECT DISTINCT userId, firstName, lastName, gender, level
+                     SELECT DISTINCT user_id, first_name, last_name, gender, level
                      FROM staging_events
                      WHERE user_id IS NOT NULL;
 """)
