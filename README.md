@@ -4,8 +4,8 @@ ETL Pipeline in AWS Redshift and S3
 ## Project Summary
 In this project, I build an **ETL Pipeline** (Extraction, Transformation, Loading)
 of a large data set from a fictitious music streaming service named *Sparkify*.
-The ETL process flows from Amazon Web Service's (AWS) 
-Simple Storage Service (S3) 
+The ETL process flows from Amazon Web Service's (AWS)
+Simple Storage Service (S3)
 into staging tables in **AWS Redshift** (for data warehouses).
 
 I then query the staged data into an analytics table.
@@ -46,12 +46,12 @@ The *star* schema is used, with a **fact** table centered around **dimension** t
 
 1. Clone this repository, which will place the 3 `.py` files and the `.cfg` file
  into the same directory.
-2. Duplicate the `dwh_template.cfg` file to create a new file named `dwh.cfg`. 
+2. Duplicate the `dwh_template.cfg` file to create a new file named `dwh.cfg`.
  Because this will contain private login credentials, be sure it is added to the
  `.gitignore` file.
 3. Fill in the `[CLUSTER]` and `[IAM_ROLE]` attributes from AWS,
  according to the IAM role and Redshift cluster already created. Please consult
  AWS's well-documented instructions as necessary.
-4. Run `create_tables.py` to set up the Redshift data warehouse cluster.
-5. Run `etl.py`. This will copy the 2 large tables from S3 into staging tables.
+4. Run `python create_tables.py` to set up the Redshift data warehouse cluster.
+5. Run `python etl.py`. This will copy the 2 large tables from S3 into staging tables.
  This will also populate the smaller dimension tables.
