@@ -6,3 +6,6 @@
 /sparkify-data-warehouse.iml
 /vcs.xml
 /aws.xml
+
+dwh.cfg
+
