@@ -28,7 +28,9 @@ load data from S3 into staging tables on Redshift, and then process that data in
 
 The *star* schema is used, with a **fact** table centered around **dimension** tables at its periphery.
 
-<img alt="Entity Relationship Diagram" src="./img/sparkify_ERD.png" width="350" height="825" />
+![Entity Relationship Diagram](./img/sparkify_ERD.png)
+
+<-- <img alt="Entity Relationship Diagram" src="./img/sparkify_ERD.png" width="350" height="825" /> -->
 
 **Fact table**: `songplays` -- every occurrence of a song being played is stored here.
 
