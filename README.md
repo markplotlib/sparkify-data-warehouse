@@ -1,3 +1,5 @@
+<img src="./img/redshift.png" alt="Amazon Redshift" width="350" title="Amazon Redshift" align="middle" />
+
 # Sparkify Data Warehouse
 ETL Pipeline in AWS Redshift and S3
 
@@ -7,6 +9,8 @@ of a large data set from a fictitious music streaming service named *Sparkify*.
 The ETL process flows from Amazon Web Service's (AWS)
 Simple Storage Service (S3)
 into staging tables in **AWS Redshift** (for data warehouses).
+
+<img src="./img/etl.jpg" alt="Amazon Redshift" width="500" title="Amazon Redshift" align="middle" />
 
 I then query the staged data into an analytics table.
 This will help *Sparkify's* analytics team learn insight about its customer base.
